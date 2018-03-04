@@ -1,5 +1,6 @@
-##Packages to install
-npm install react-navigation;
-npm install react-native-elements;
-npm install expo;
+## Setting Up
+npm install react-native-elements --save <br />
+npm install react-navigation --save <br />
+npm install expo --save <br />
+npm install <br />
 
