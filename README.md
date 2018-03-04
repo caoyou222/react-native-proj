@@ -1,4 +1,4 @@
-Screen Files are in the folder screen
+Screen Files are in the folder screens
 ## Setting Up
 npm install react-native-elements --save <br />
 npm install react-navigation --save <br />
