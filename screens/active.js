@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {Image, AsyncStorage, Text, StyleSheet, View, Dimensions, RefreshControl, ScrollView} from 'react-native';
 import {StackNavigator} from 'react-navigation';
-import {Button} from 'react-native-elements';
 import Expo, {Audio} from 'expo';
 import ScrollViewItem from './ScrollViewItem.js';
 const soundObject = new Expo.Audio.Sound();
 const info = [];
-const audio = "https://mixtapemonkey.com/mixtapes/zip/637/Chance%20The%20Rapper-%20Acid%20Rap/01.%20Good%20Ass%20Intro%20(Prod.%20by%20Peter%20Cottontale,%20Cam%20for%20J.U.S.T.I.C.E%20League%20&%20Stefan%20Ponce)%20.mp3";
+const audio = "https://cf-media.sndcdn.com/MqaAZcQXvFV5.128.mp3?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiKjovL2NmLW1lZGlhLnNuZGNkbi5jb20vTXFhQVpjUVh2RlY1LjEyOC5tcDMiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE1MjAxOTY1OTZ9fX1dfQ__&Signature=sXVd339xN6AfcI-SNZ9P-byTPbShma3nw~7vYasblQy7VWjjRG9cMRZGk3ZxC5S3NpY4agk-Wh69YNqSp1Kp-YdRQiCCTxE8tRBQ8uhEgn1b5gmXhNuEKOPEyLriKP-YSk9oHsKjDUOidUwAd6acJ8Jq63-cbvdsWYlfzCj3lLX6UE4oL0BbtaJw1hWZjhau4WIik~TtRNHYTU7PXlbGmRwDpmgvQHsQVL0Celv-eKoG~Qh5Lfzw2Xp1XuZ1iylGhxDSXRUQ0BPCSnvzwNHeB~~WLMcsNwNLS9JG4IutrbcLLyFejgQ51z-MZEgMhjcStGXgOa9G0qNY07e~h7bavQ__&Key-Pair-Id=APKAJAGZ7VMH2PFPW6UQ";
+const server = 'https://plgaia-staging.herokuapp.com/api/v1/post_get_active/4Wa0y74X1mAKKIo2qgiWii';
 export default class active extends React.Component {
  constructor(props){
  super(props);
@@ -36,6 +36,17 @@ export default class active extends React.Component {
     }
   }
 
+_getStatus = async()=>{
+  try{
+      var st = await soundObject.getStatusAsync();
+      var dr = st["playableDurationMillis"];
+      var pg = (st["positionMillis"]/st["playableDurationMillis"]*100);
+      this.setState({status:st, percentage:pg});
+    }catch(error){
+      console.log(error);
+      
+    }
+}
 
   _stopSound(){
     soundObject.stopAsync();
@@ -44,7 +55,7 @@ export default class active extends React.Component {
 
   _onRefresh(){
     this.setState({refreshing:true});
-    return fetch('https://plgaia-staging.herokuapp.com/api/v1/post_get_active/4Wa0y74X1mAKKIo2qgiWii',{
+    return fetch(server,{
       method:"GET", 
       headers:{"authorization":"Token token=ZVKgYbjoOxoM9fvuhDvQOAtt", "content-type":"application/json"}})
     .then((res)=>res.json())
@@ -89,11 +100,14 @@ export default class active extends React.Component {
 
   componentDidMount=()=> {
     this._playSound(audio);
-   
+    this.interval = setInterval(() => this._getStatus(), 800);
     
 }
 
-  componentWillUnmount=()=>{this._stopSound();}
+  componentWillUnmount=()=>{
+    this._stopSound();
+    clearInterval(this.interval);
+  }
 
 
  render(){
@@ -113,6 +127,11 @@ export default class active extends React.Component {
    info.map((item,i)=>this.renderItems(item,i))
   }
   </ScrollView>
+  <View style={styles.box}>
+  <View style={styles.bar}/>
+    <View style={{position: 'absolute', width: `${this.state.percentage}%`, left: 20, height: 8, backgroundColor: 'lightgrey', borderRadius:50}} />
+  </View>
+  </View>
  );
 }
 }
@@ -124,6 +143,21 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height,
     width: Dimensions.get('window').width,
   },
+  box:{
+    position: 'absolute',
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent:'center',
+    width: Dimensions.get('window').width,
+    height: 40,
+    backgroundColor:'#FFE4D3'
+  },
+  bar:{
+    backgroundColor:"#FBF7F6",
+    height:8,
+    width : Dimensions.get('window').width-40,
+    borderRadius:50
+  }
 
 
 });

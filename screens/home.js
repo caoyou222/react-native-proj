@@ -28,7 +28,7 @@ export default class home extends React.Component {
     <Button   
     title = "Get Started"
     color = "white"
-    buttonStyle={{backgroundColor: '#43BCD3', borderRadius: 30, width: 250,alignSelf:'center'}}
+    buttonStyle={styles.button}
     onPress={()=> navigate('AT')}
     />
   </View>
@@ -74,6 +74,12 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height/2.5,
     resizeMode:"cover",
+    alignSelf:'center'
+  },
+  button:{
+    backgroundColor: '#43BCD3',
+    borderRadius: 30,
+    width: 250,
     alignSelf:'center'
   }
 
