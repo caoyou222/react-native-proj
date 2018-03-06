@@ -5,7 +5,7 @@ import Expo, {Audio} from 'expo';
 import ScrollViewItem from './ScrollViewItem.js';
 const soundObject = new Expo.Audio.Sound();
 const info = [];
-const audio = "https://cf-media.sndcdn.com/MqaAZcQXvFV5.128.mp3?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiKjovL2NmLW1lZGlhLnNuZGNkbi5jb20vTXFhQVpjUVh2RlY1LjEyOC5tcDMiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE1MjAxOTY1OTZ9fX1dfQ__&Signature=sXVd339xN6AfcI-SNZ9P-byTPbShma3nw~7vYasblQy7VWjjRG9cMRZGk3ZxC5S3NpY4agk-Wh69YNqSp1Kp-YdRQiCCTxE8tRBQ8uhEgn1b5gmXhNuEKOPEyLriKP-YSk9oHsKjDUOidUwAd6acJ8Jq63-cbvdsWYlfzCj3lLX6UE4oL0BbtaJw1hWZjhau4WIik~TtRNHYTU7PXlbGmRwDpmgvQHsQVL0Celv-eKoG~Qh5Lfzw2Xp1XuZ1iylGhxDSXRUQ0BPCSnvzwNHeB~~WLMcsNwNLS9JG4IutrbcLLyFejgQ51z-MZEgMhjcStGXgOa9G0qNY07e~h7bavQ__&Key-Pair-Id=APKAJAGZ7VMH2PFPW6UQ";
+const audio = "https://mixtapemonkey.com/mixtapes/zip/637/Chance%20The%20Rapper-%20Acid%20Rap/01.%20Good%20Ass%20Intro%20(Prod.%20by%20Peter%20Cottontale,%20Cam%20for%20J.U.S.T.I.C.E%20League%20&%20Stefan%20Ponce)%20.mp3";
 const server = 'https://plgaia-staging.herokuapp.com/api/v1/post_get_active/4Wa0y74X1mAKKIo2qgiWii';
 export default class active extends React.Component {
  constructor(props){
